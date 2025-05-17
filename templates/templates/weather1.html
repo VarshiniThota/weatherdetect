@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Detector</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        input {
+            width: 80%;
+            padding: 0.8rem;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background: #ff7eb3;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: #ff6b99;
+            transform: scale(1.05);
+        }
+
+        .weather-details {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.7s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .weather-details img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .weather-details h2 {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Detector</h1>
+        <form method="POST" action="">
+            <input type="text" name="city" placeholder="Enter city name" required />
+            {% csrf_token %}
+            <br />
+            <button type="submit">Search</button>
+        </form>
+        {% if data.country_code %}
+        <div class="weather-details" id="weather-details">
+            <!-- Rendered weather details will be added here via backend -->
+           
+            <h1>{{city}}</h1> 
+             <h3>Country code : {{data.country_code}}</h3>
+             <h5>Coordinate : {{data.coordinate}}</h5>
+             <h5>Temperature :{{data.temp}}</h5>
+             <h5>Pressure : {{data.pressure}}</h5>
+             <h5>Humidity : {{data.humidity}}</h5>
+           
+        </div>
+        {% endif %} 
+    </div>
+</body>
+</html>
